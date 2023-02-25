@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour
 
     private int flowersCollected;
     private int chocolatesCollected;
+
+    public RectTransform gamePanel;
     // public textme
     // Start is called before the first frame update
     void Start()
@@ -24,6 +26,13 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape)){
+            if(Time.timeScale == 1){
+                Time.timeScale = 0;
+                gamePanel.gameObject.SetActive(true);
+            }
+        }
+        
         if(playerOne.GetComponent<PlayerMovement>().notMoving 
             || playerTwo.GetComponent<PlayerMovement>().notMoving){
                 currentTime -= Time.deltaTime;
@@ -38,6 +47,12 @@ public class GameManager : MonoBehaviour
         }
 
         countDown.text =  ((int)currentTime).ToString();
+    }
+
+    public void ContinueGame(){
+        Time.timeScale = 1;
+        Debug.Log("YIKESSSS");
+        gamePanel.gameObject.SetActive(false);
     }
 
     public void AddFlower(){
