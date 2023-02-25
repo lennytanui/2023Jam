@@ -20,5 +20,9 @@ public class PlayerLogic : MonoBehaviour
         if(collision.gameObject.CompareTag("Paris")){
             Debug.Log("You Share a heart!");
         }
+
+        // if(collision.gameObject.CompareTag("Flower")){
+        //     Debug.Log("Grab Flower!");
+        // }
     }
 }

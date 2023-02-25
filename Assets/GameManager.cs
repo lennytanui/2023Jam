@@ -10,10 +10,14 @@ public class GameManager : MonoBehaviour
     public float currentTime;
     public float startTime = 3;
     public TMPro.TMP_Text countDown;
+
+    private int flowersCollected;
+    private int chocolatesCollected;
     // public textme
     // Start is called before the first frame update
     void Start()
     {
+        flowersCollected = 0;
         currentTime = startTime;
     }
 
@@ -28,11 +32,21 @@ public class GameManager : MonoBehaviour
         }
 
         if(currentTime <= 0){
-            Debug.Log("GAME OVER!!");
+            // Debug.Log("GAME OVER!!");
         }else{
-            Debug.Log(currentTime + " S");
+            // Debug.Log(currentTime + " S");
         }
 
         countDown.text =  ((int)currentTime).ToString();
     }
-}
+
+    public void AddFlower(){
+        flowersCollected += 1;
+        Debug.Log("flower has been added");
+    }
+
+    public void AddChocolate(){
+        chocolatesCollected += 1;
+        Debug.Log("chocolate has been added");
+    }
+}   

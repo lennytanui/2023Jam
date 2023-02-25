@@ -7,6 +7,11 @@ TagManager:
   - Player 1
   - Player 2
   - Paris
+  - Boundary
+  - Flower
+  - Chocolate
+  - GameManager
+  - Tower
   layers:
   - Default
   - TransparentFX
