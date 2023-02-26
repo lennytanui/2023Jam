@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 799205a696cef564481fbb49eba41797
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Wellfleet
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e944893a5c7fd0647a4e90d6841fcaaf, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

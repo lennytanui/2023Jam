@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,13 +13,17 @@ public class GameManager : MonoBehaviour
     public float currentTime;
     public float startTime = 60;
     public TMPro.TMP_Text countDown;
+    public TMPro.TMP_Text musicTimeLeft;
     public Image soundLengthBar;
+    public Image applauseAmountBar;
+
 
     private int flowersCollected;
     private int chocolatesCollected;
 
     public float minimumDistanceToBeNornal = 2;
     public float pitchAvg = 2;
+    public Transform[] spawnPoints;
 
     public RectTransform gamePanel;
     private float musicLength = 0;
@@ -33,6 +38,11 @@ public class GameManager : MonoBehaviour
         Debug.Log("Initital Pitch" + mainAudioSource.pitch);
         audioLength = mainAudioSource.clip.length;
         mainAudioSource.Play();
+        
+        Debug.Log("lengtj" + spawnPoints.Length);
+        Debug.Log("flowers colected" + flowersCollected);
+
+        InitSpawnManager();
     }
 
     // Update is called once per frame
@@ -43,6 +53,7 @@ public class GameManager : MonoBehaviour
             if(Time.timeScale == 1){
                 Time.timeScale = 0;
                 gamePanel.gameObject.SetActive(true);
+                mainAudioSource.Pause();
             }
         }
 
@@ -70,23 +81,94 @@ public class GameManager : MonoBehaviour
             // Debug.Log(currentTime + " S");
         }
 
+        applauseAmountBar.fillAmount = (float)flowersCollected / (float)spawnPoints.Length;
         soundLengthBar.fillAmount = 1 - musicLength / audioLength;
-        countDown.text =  ((int)(audioLength - musicLength)).ToString();
+        Transform time_passed = musicTimeLeft.gameObject.transform;
+
+        // musicTimeLeft.gameObject.transform.SetPositionAndRotation(
+        //             new Vector2(soundLengthBar.transform.localScale.x * (soundLengthBar.fillAmount), 
+        //             time_passed.position.y), Quaternion.identity);
+
+        musicTimeLeft.text =  ((int)(audioLength - musicLength)).ToString() +  " seconds left";
+
+        if(audioLength - musicLength <= 0){
+            if(applauseAmountBar.fillAmount >= .65f){
+                ShowWinScene();
+            }else{
+                ShowLoseScene();
+            }
+        }
     }
 
     public void ContinueGame(){
         Time.timeScale = 1;
-        Debug.Log("YIKESSSS");
         gamePanel.gameObject.SetActive(false);
+        mainAudioSource.UnPause();
     }
 
     public void AddFlower(){
         flowersCollected += 1;
-        Debug.Log("flower has been added");
+        Debug.Log("Flowers added - " + flowersCollected);
     }
 
     public void AddChocolate(){
         chocolatesCollected += 1;
-        Debug.Log("chocolate has been added");
+    }
+
+
+    public int maxSpawns = 10;
+    int[] activeSpawnPoints = {};
+    public int currentSpawned = 0;
+    public GameObject applause;
+
+
+    void ShowWinScene(){
+        SceneManager.LoadScene("Lose");
+    }
+
+    void ShowLoseScene(){
+        SceneManager.LoadScene("Win");
+    }
+
+    void InitSpawnManager(){
+        activeSpawnPoints = new int[maxSpawns];
+        for(int i = 0; i < spawnPoints.Length; i++){
+            Instantiate(applause, spawnPoints[i].transform.position, Quaternion.identity);
+        }
+        // bool unique = true;
+        //     for(int i = 0; i < activeSpawnPoints.Length; i++){
+        //         int random_int = Random.Range(0, spawnPoints.Length);
+
+        //         while(true){
+        //             for(int j = 0; j < i; j++){
+        //                 if(activeSpawnPoints[j] == 0)
+        //             }
+        //             if(activeSpawnPoints[i] == )
+        //         }
+        //         unique = true;
+        //     }
+
+        // }
+    }
+
+    // void AddSpawnPoint(){
+    //     // find open slot
+        
+    // }
+
+    private void SpawnManager(){
+        // while(currentSpawned < maxSpawns){
+        //     int random_int = Random.Range(0, spawnPoints.Length);
+            
+        //     int openIndex = 0;
+        //     for(int i = 0; i < activeSpawnPoints.Length; i++){
+
+        //     }
+            
+        //     if(activeSpawnPoints[i] == -1){
+        //         activeSpawnPoints[i] = random_int;
+        //         break;
+        //     }
+        // }
     }
 }   

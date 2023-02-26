@@ -5,7 +5,10 @@ using UnityEngine;
 public class Trigger : MonoBehaviour
 {
     private GameObject gameManagerObject;
+    public AudioSource pick_sound;
     private GameManager gameManager;
+    
+    private bool destroying = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,17 +20,27 @@ public class Trigger : MonoBehaviour
     void Update()
     {
 
+        if(pick_sound.time > 1 && destroying == true){
+            Destroy(this.gameObject);
+        }
     }
 
     void OnTriggerEnter2D(Collider2D col){
+        if(destroying)
+            return;
+
         if(col.CompareTag("Player 1") || col.CompareTag("Player 2")){
             if(this.gameObject.tag == "Flower"){
                 gameManager.AddFlower();
             } else if(this.gameObject.tag == "Chocolate"){
                 gameManager.AddChocolate();
             }
+
+            gameObject.GetComponent<Renderer>().enabled = false;
             
-            Destroy(this.gameObject);
+            destroying = true;
+            pick_sound.time = 0;
+            pick_sound.Play();
         }
     }
 }
