@@ -92,8 +92,9 @@ public class GameManager : MonoBehaviour
         musicTimeLeft.text =  ((int)(audioLength - musicLength)).ToString() +  " seconds left";
 
         if(audioLength - musicLength <= 0){
-            if(applauseAmountBar.fillAmount >= .65f){
-                ShowWinScene();
+            if(flowersCollected > spawnPoints.Length * 0.8f){
+                ShowLoseScene();
+                // ShowWinScene();
             }else{
                 ShowLoseScene();
             }
