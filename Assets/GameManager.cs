@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,8 +10,9 @@ public class GameManager : MonoBehaviour
     public AudioSource mainAudioSource;
 
     public float currentTime;
-    public float startTime = 3;
+    public float startTime = 60;
     public TMPro.TMP_Text countDown;
+    public Image soundLengthBar;
 
     private int flowersCollected;
     private int chocolatesCollected;
@@ -68,6 +70,7 @@ public class GameManager : MonoBehaviour
             // Debug.Log(currentTime + " S");
         }
 
+        soundLengthBar.fillAmount = 1 - musicLength / audioLength;
         countDown.text =  ((int)(audioLength - musicLength)).ToString();
     }
 
