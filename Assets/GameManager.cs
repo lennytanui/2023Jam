@@ -92,10 +92,12 @@ public class GameManager : MonoBehaviour
         musicTimeLeft.text =  ((int)(audioLength - musicLength)).ToString() +  " seconds left";
 
         if(audioLength - musicLength <= 0){
-            if(flowersCollected > spawnPoints.Length * 0.8f){
-                ShowLoseScene();
-                // ShowWinScene();
+            if(flowersCollected >= 30.0f){
+                // ShowLoseScene();
+                Debug.Log("GAME WON!!!");
+                ShowWinScene();
             }else{
+                Debug.Log("game losstt!!");
                 ShowLoseScene();
             }
         }
@@ -124,11 +126,11 @@ public class GameManager : MonoBehaviour
 
 
     void ShowWinScene(){
-        SceneManager.LoadScene("Lose");
+        SceneManager.LoadScene("Win");
     }
 
     void ShowLoseScene(){
-        SceneManager.LoadScene("Win");
+        SceneManager.LoadScene("Lose");
     }
 
     void InitSpawnManager(){
